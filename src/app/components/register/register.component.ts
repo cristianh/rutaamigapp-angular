@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from "@angular/router"
+import { Usuario } from 'src/app/models/usuario';
+import { UsuarioService } from 'src/app/services/usuario.service';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -9,10 +11,11 @@ import { Router } from "@angular/router"
 export class RegisterComponent implements OnInit {
 
   formRegister: FormGroup;
+  mensajeSuccess = false
+  mensajeError = false
+  mensajeFinal: any;
 
-
-
-  constructor(private fb: FormBuilder, private router: Router) { }
+  constructor(private fb: FormBuilder, private router: Router, private usuarioservice: UsuarioService) { }
 
   ngOnInit(): void {
     this.formRegister = this.fb.group({
@@ -27,59 +30,50 @@ export class RegisterComponent implements OnInit {
   onRegistrar() {
 
 
-    let usuario = {
-      "nombre_usuario": "Camilo",
-      "apellido_usuario": "Hernandez",
-      "correo_usuario": "camilo222@gmail.com",
-      "password_usuario": "A123bb9%",
-      "estado_usuario": true
-    }
+    let usuario: Usuario;
+
 
     if (this.formRegister.valid) {
+      usuario = new Usuario()
       usuario.nombre_usuario = this.formRegister.value.nombreUsuario
       usuario.apellido_usuario = this.formRegister.value.apellidoUsuario
       usuario.correo_usuario = this.formRegister.value.correoUsuario
-      usuario.password_usuario = this.formRegister.value.Password1
-      console.table(usuario)    
-      
-      fetch('http://localhost:3000/api/usuario/registro', {
-                method: 'POST', // or 'PUT'
-                body: JSON.stringify(usuario), // data can be `string` or {object}!
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            }).then(res => res.json())
-                .catch(error => console.error('Error:', error))
-                .then(response => {
-                    console.log(response.status)
-                    if (response.usuario) {
-                        console.log('Success:', response)
-                        this.router.navigate(['/mapa'])
-                        
-                        /* document.getElementById('mensaje').classList.add('hidden')
-                        document.getElementById('mensaje-error').innerHTML = '' */
-                        //window.location = '/map';
-                    } else {
-                        console.log('Success:', response)
-                        /* if (response.errors) {
-                            document.getElementById('mensaje').classList.remove('hidden')
-                            let errorMessague = []
-                            response.errors.forEach(element => {
-                                errorMessague.push(element.msg)
-    
-                            });
-                            document.getElementById('mensaje-error').innerHTML = ''
-                            errorMessague.forEach(element => {
-                                document.getElementById('mensaje-error').innerHTML += `${element}<br>`
-                            });
-                        }
-                        if (response.error) {
-                            document.getElementById('mensaje').classList.remove('hidden')
-                            document.getElementById('mensaje-error').innerHTML += `${response.error} <a href="registroDemo.html">Registrar</a>`
-                        } */
-                    }
+      usuario.estado_usuario = true
 
-                });
+      //TODO:REVISIAR PORQUE AL ENVIAR UN CORREO QUE YA EXISTE LA PETICION RETORNA UN STATUS 400
+
+      //VALIDATE MATCH PASSWORD1 AND PASSWORD2
+      if (this.formRegister.value.Password1 === this.formRegister.value.Password2) {
+        usuario.password_usuario = this.formRegister.value.Password1
+        //SEND DATA TO SERVICES
+        this.usuarioservice.saveUsuario('/usuario/registro', usuario).subscribe(
+          //SEND NEW USUARIO
+          (data): any => {
+            
+            if (data.hasOwnProperty("errors")) {
+              this.mensajeFinal = data
+              
+            } else {
+              this.mensajeFinal = data
+              this.mensajeSuccess = true
+              this.mensajeError = false
+            }
+
+            /* this.formRegister *///buscar como limpiar formulario.
+          },
+          error => console.log("Ha ocurrido un error en la llamada: ", error))
+
+
+      } else {
+        this.mensajeFinal = "Las contraseñas no coinciden"
+        this.mensajeSuccess = false
+        this.mensajeError = true
+      }
+
+
+
+
+
     }
   }
 

@@ -35,7 +35,7 @@ export class RegisterUsuarioComponent implements OnInit {
   }
 
   onSubmit(f: NgForm) {
-    console.log(f.value);  // { first: '', last: '' }
+   /*  console.log(f.value);  // { first: '', last: '' }
     console.log(f.valid);  // false
     if (f.valid == false) {
       this.mensaje = false
@@ -56,7 +56,7 @@ export class RegisterUsuarioComponent implements OnInit {
         error => console.log("Ha ocurrido un error en la llamada: ", error))
     }
     
-    this.mensajeError = false
+    this.mensajeError = false */
   }
 
 }

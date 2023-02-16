@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from "@angular/router"
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UsuarioService } from 'src/app/services/usuario.service';
+import { Usuario } from 'src/app/models/usuario';
 
 @Component({
     selector: 'app-login',
@@ -15,7 +17,7 @@ export class LoginComponent implements OnInit {
     public email: string;
     public password: string;
 
-    constructor(private fb: FormBuilder, private router: Router) { }
+    constructor(private fb: FormBuilder, private router: Router, private usuarioservice: UsuarioService) { }
 
     ngOnInit(): void {
         this.formLogin = this.fb.group({
@@ -29,38 +31,28 @@ export class LoginComponent implements OnInit {
 
         /* event.preventDefault(); */
 
-        let usuario = {
-            "correo_usuario": "",
-            "password_usuario": ""
-        }
+        let usuario: Usuario
 
 
 
         if (this.formLogin.valid) {
+            usuario = new Usuario()
             usuario.correo_usuario = this.formLogin.value.email
             usuario.password_usuario = this.formLogin.value.password
-            console.log(this.formLogin.value.email)
-            console.log(this.formLogin.value.password)
+            //SEND DATA TO SERVICES
+            this.usuarioservice.loginUsuario('/auth/login', usuario).subscribe(
+                //SEND NEW USUARIO
+                (data): any => {
 
-            fetch('http://localhost:3000/api/auth/login', {
-                method: 'POST', // or 'PUT'
-                body: JSON.stringify(usuario), // data can be `string` or {object}!
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            }).then(res => res.json())
-                .catch(error => console.error('Error:', error))
-                .then(response => {
-                    console.log(response.status)
-                    if (response.usuario) {
-                        console.log('Success:', response)
+                    if (data) {
+                        console.log('Success:', data)
                         this.router.navigate(['/mapa'])
-                        
+
                         /* document.getElementById('mensaje').classList.add('hidden')
                         document.getElementById('mensaje-error').innerHTML = '' */
                         //window.location = '/map';
                     } else {
-                        console.log('Success:', response)
+                        console.log('Success:', data)
                         /* if (response.errors) {
                             document.getElementById('mensaje').classList.remove('hidden')
                             let errorMessague = []
@@ -79,7 +71,12 @@ export class LoginComponent implements OnInit {
                         } */
                     }
 
-                });
+
+                    /* this.formRegister *///buscar como limpiar formulario.
+                },
+                error => console.log("Ha ocurrido un error en la llamada: ", error))
+
+
         }
 
 

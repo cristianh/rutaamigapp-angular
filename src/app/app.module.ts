@@ -17,6 +17,10 @@ import { UsuariosComponent } from './components/usuarios/usuarios.component';
 import { ContainerUsuarioComponent } from './components/container-usuario/container-usuario.component';
 import { RegisterUsuarioComponent } from './components/register-usuario/register-usuario.component';
 import { ContainerRegisterUsuarioComponent } from './components/container-register-usuario/container-register-usuario.component';
+import { UsuarioResetPasswordComponent } from './components/usuario-reset-password/usuario-reset-password.component';
+import { ContainerUsuarioResetPasswordComponent } from './components/container-usuario-reset-password/container-usuario-reset-password.component';
+import { UsuarioNewPasswordComponent } from './components/usuario-new-password/usuario-new-password.component';
+import { ContenedorUsuarioNewPasswordComponent } from './components/contenedor-usuario-new-password/contenedor-usuario-new-password.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +37,11 @@ import { ContainerRegisterUsuarioComponent } from './components/container-regist
     UsuariosComponent,
     ContainerUsuarioComponent,
     RegisterUsuarioComponent,
-    ContainerRegisterUsuarioComponent
+    ContainerRegisterUsuarioComponent,
+    UsuarioResetPasswordComponent,
+    ContainerUsuarioResetPasswordComponent,
+    UsuarioNewPasswordComponent,
+    ContenedorUsuarioNewPasswordComponent
   ],
   imports: [
     BrowserModule,

@@ -10,6 +10,7 @@ import { Usuario } from '../models/usuario';
 export class UsuarioService {
 
   configUrl = 'assets/config.json';
+  baseUrl="http://localhost:3000/api"
 
   constructor(private http: HttpClient) { }
 
@@ -21,7 +22,8 @@ export class UsuarioService {
     let config: any = {
       responseType: "json"
     }
-    return this.http.post(route, usuariodata, config);
+    
+    return this.http.post(`${this.baseUrl}${route}`, usuariodata, config);
   }
 
   deleteUsuario(route: string) {
@@ -33,5 +35,27 @@ export class UsuarioService {
 
   navegacionUsuario(route: string) {
     return this.http.get(route)
+  }
+
+  loginUsuario(route,usuario:Usuario){
+    let config: any = {
+      responseType: "json"
+    }
+    return this.http.post(`${this.baseUrl}${route}`, usuario, config);
+  }
+
+  resetPassword(route,correo){
+    let config: any = {
+      responseType: "json"
+    }
+    return this.http.post(`${this.baseUrl}${route}`, correo, config);
+  }
+
+  updatePasswordUsuario(route,data){
+    let config: any = {
+      responseType: "json",
+      
+    }
+    return this.http.post(`${this.baseUrl}${route}`, data,config);
   }
 }
