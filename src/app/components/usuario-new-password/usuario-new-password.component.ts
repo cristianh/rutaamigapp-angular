@@ -58,24 +58,7 @@ export class UsuarioNewPasswordComponent implements OnInit {
               console.log(data)
               this.mensajeError = false
               this.mensajeSuccess = true
-              this.mensaje = `${data?.result}`;
-
-              /* if (data.status == 'not-find') {
-
-                this.mensajeError = true
-                this.mensajeSuccess = false
-                this.mensaje = data?.result;
-              } else {
-                this.mensajeError = false
-                this.mensajeSuccess = true
-                this.mensaje = data?.result;
-              }
-            } else {
-              this.mensajeError = false
-              this.mensajeSuccess = true
-
-              this.mensaje = data?.result;
-            } */
+              this.mensaje = `${data?.result}`;            
             }
           },
           error => {
