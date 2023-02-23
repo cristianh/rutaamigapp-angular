@@ -13,6 +13,7 @@ export class RegisterComponent implements OnInit {
   formRegister: FormGroup;
   mensajeSuccess = false
   mensajeError = false
+  validacionFormulario = false
   mensajeFinal: any;
 
   constructor(private fb: FormBuilder, private router: Router, private usuarioservice: UsuarioService) { }
@@ -50,30 +51,36 @@ export class RegisterComponent implements OnInit {
           //SEND NEW USUARIO
           (data): any => {
             
-            if (data.hasOwnProperty("errors")) {
-              this.mensajeFinal = data
-              
-            } else {
+            
               this.mensajeFinal = data
               this.mensajeSuccess = true
               this.mensajeError = false
-            }
+              this.validacionFormulario = false
+            
 
             /* this.formRegister *///buscar como limpiar formulario.
           },
-          error => console.log("Ha ocurrido un error en la llamada: ", error))
+          error => {
+            if (error.hasOwnProperty("errors") || error.hasOwnProperty("error")) {
+              console.log(error.errors)
+              console.log(error.error.errors[0].msg)
+              if (error.error.errors[0].hasOwnProperty("msg")) {
+                this.mensajeFinal = error.error.errors[0].msg
+                console.log(this.mensajeFinal)
+                this.mensajeError = true
+              }
+            } 
 
-
+            console.log("Ha ocurrido un error en la llamada: ", error)
+          });
       } else {
         this.mensajeFinal = "Las contraseñas no coinciden"
         this.mensajeSuccess = false
         this.mensajeError = true
+        this.validacionFormulario = false
       }
-
-
-
-
-
+    }else{      
+      this.validacionFormulario = true
     }
   }
 

@@ -128,3 +128,11 @@ element.style {
     margin: auto;
     /*Añañañañ*/
 }
+
+.border-success {
+    border-left:2px solid green;
+}
+
+.border-danger {
+    border-left:2px solid red;
+}
