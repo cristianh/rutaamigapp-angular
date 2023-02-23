@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Usuario } from 'src/app/models/usuario';
 import { UsuarioService } from 'src/app/services/usuario.service';
+import { environment } from '../../../environments/environment';
 
 
 @Component({
@@ -19,8 +20,7 @@ export class UsuariosComponent implements OnInit {
   pageLimit = 6
   take = 0
   loading = true
-  url = 'http://localhost:3000/api/' //Dev
-  //url = 'https://backendrutamiappbackservice.onrender.com/app/usuario' //Produccion
+  url = environment.API_URL;
 
   ngOnInit(): void {
 

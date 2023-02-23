@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 import { Usuario } from '../models/usuario';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,7 @@ import { Usuario } from '../models/usuario';
 export class UsuarioService {
 
   configUrl = 'assets/config.json';
-  baseUrl="http://localhost:3000/api"
+  baseUrl=environment.API_URL;
 
   constructor(private http: HttpClient) { }
 
