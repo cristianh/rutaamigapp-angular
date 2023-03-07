@@ -21,6 +21,8 @@ import { UsuarioResetPasswordComponent } from './components/usuario-reset-passwo
 import { ContainerUsuarioResetPasswordComponent } from './components/container-usuario-reset-password/container-usuario-reset-password.component';
 import { UsuarioNewPasswordComponent } from './components/usuario-new-password/usuario-new-password.component';
 import { ContenedorUsuarioNewPasswordComponent } from './components/contenedor-usuario-new-password/contenedor-usuario-new-password.component';
+import { MapaComponent } from './components/mapa/mapa.component';
+import { ContainerMapaComponent } from './components/container-mapa/container-mapa.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +43,9 @@ import { ContenedorUsuarioNewPasswordComponent } from './components/contenedor-u
     UsuarioResetPasswordComponent,
     ContainerUsuarioResetPasswordComponent,
     UsuarioNewPasswordComponent,
-    ContenedorUsuarioNewPasswordComponent
+    ContenedorUsuarioNewPasswordComponent,
+    MapaComponent,
+    ContainerMapaComponent
   ],
   imports: [
     BrowserModule,
