@@ -241,7 +241,7 @@ export class MapaComponent implements OnInit {
     }
 
     // Make a GET request to the API and return the location of the ISS.
-    try {
+    /* try {
       await fetch(`https://amigaapp-f2f93-default-rtdb.firebaseio.com/dbrutas/${ruta}.json`)
         .then((resp) => resp.json())
         .then((data) => {
@@ -275,11 +275,11 @@ export class MapaComponent implements OnInit {
           });
 
         })
-    } catch (err) {
+    } catch (err) { */
       // If the updateSource interval is defined, clear the interval to stop updating the source.
       //if (updateSource) clearInterval(updateSource);
-      throw new Error(err);
-    }
+     /*  throw new Error(err);
+    } */
   }
 
 }
