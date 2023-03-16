@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
+//COMPONENTS
 import { AppComponent } from './app.component';
 import { NavComponent } from './components/nav/nav.component';
 import { PrincipalContainerComponent } from './components/principal-container/principal-container.component';
